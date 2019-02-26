@@ -44,4 +44,4 @@ legion:
 
   agent:
     tags:
-      query: http://172.18.90.8:61614/tsm
+      tsm: http://172.18.90.8:61614/tsm
