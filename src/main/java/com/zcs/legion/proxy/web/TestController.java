@@ -6,8 +6,6 @@ import com.legion.client.common.LegionConnector;
 import com.legion.client.handlers.SenderHandler;
 import com.legion.client.handlers.SenderHandlerFactory;
 import com.legion.core.api.X;
-import com.legion.net.utils.NetPBHelper;
-import com.zcs.legion.proxy.Application;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Metrics;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;

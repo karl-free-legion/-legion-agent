@@ -1,31 +1,21 @@
 package com.zcs.legion.proxy;
 
-import com.google.protobuf.Any;
 import com.google.protobuf.ByteString;
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.Message;
-import com.google.protobuf.util.JsonFormat;
-import com.legion.client.api.sample.T;
 import com.legion.client.common.ActorProvider;
 import com.legion.client.common.IRecipientActor;
 import com.legion.client.common.RequestDescriptor;
 import com.legion.client.common.TagMatchers;
-import com.legion.client.exception.UnsupportedTagException;
 import com.legion.client.handlers.RecipientHandler;
 import com.legion.core.LegionException;
-import com.legion.core.XHelper;
 import com.legion.core.api.X;
-import io.netty.handler.codec.http.HttpHeaders;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.asynchttpclient.*;
+import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.BoundRequestBuilder;
+import org.asynchttpclient.Dsl;
+import org.asynchttpclient.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
