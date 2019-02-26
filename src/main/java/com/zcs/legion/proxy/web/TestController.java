@@ -47,7 +47,6 @@ public class TestController {
 
     /**
      * 消息转发处理
-     * @param type      消息类型, M/P
      * @param groupId   GroupID
      * @param tag       标签
      * @param body      消息体
@@ -79,7 +78,7 @@ public class TestController {
         }, fail->{
             //handler
             log.info("response failed. {}, {}", fail.getCode(), fail.getMessage());
-            completableFuture.complete(String.format("response failed, code={}, msg={}", fail.getCode(), fail.getMessage()));
+            completableFuture.complete(String.format("response failed, code=%d, msg=%s", fail.getCode(), fail.getMessage()));
         });
 
         log.info("===> start message.");
