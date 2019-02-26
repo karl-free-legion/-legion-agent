@@ -6,6 +6,7 @@ import com.legion.client.common.LegionConnector;
 import com.legion.client.handlers.SenderHandler;
 import com.legion.client.handlers.SenderHandlerFactory;
 import com.legion.core.api.X;
+import com.zcs.legion.proxy.AgentProperties;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Metrics;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +28,23 @@ public class TestController {
     @Autowired
     private LegionConnector legionConnector;
 
+    @Autowired
+    private AgentProperties agentProperties;
+
+    @RequestMapping(value = "/tags", method = RequestMethod.GET)
+    public Map<String, String> queryTags(){
+        return agentProperties.getTags();
+    }
+    @RequestMapping(value="/tags", method = RequestMethod.POST)
+    public Map<String, String> updateTags(@RequestBody Map<String, String> tags){
+        if(tags!=null){
+            for(String k : tags.keySet()){
+                agentProperties.getTags().put(k, tags.get(k));
+            }
+        }
+        return agentProperties.getTags();
+    }
+
     /**
      * 消息转发处理
      * @param type      消息类型, M/P
@@ -34,14 +53,14 @@ public class TestController {
      * @param body      消息体
      * @return          返回结果
      */
-    @RequestMapping(value = "/{type}/{groupId}/{tag}", method = RequestMethod.POST)
-    public String  dispatch(@PathVariable String type, @PathVariable String groupId,
+    @RequestMapping(value = "/m/{groupId}/{tag}", method = RequestMethod.POST)
+    public String  tagProxy(@PathVariable String groupId,
                             @PathVariable String tag, @RequestBody String body,
                             HttpServletRequest request) {
         REQUEST_TOTAL.increment();
 
         if(log.isDebugEnabled()){
-            log.info("===>RequestURI: {}/{}/{}, body: {}", type, groupId, tag, body);
+            log.info("===>RequestURI: /m/{}/{}, body: {}", groupId, tag, body);
         }
         X.XAgentRequest.Builder agentRequest = X.XAgentRequest.newBuilder()
                 .setRequest("/sdk/user/msglog");
