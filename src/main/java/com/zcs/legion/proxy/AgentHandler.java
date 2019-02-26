@@ -38,20 +38,20 @@ public class AgentHandler implements IRecipientActor<X.XAgentRequest> {
     @ActorProvider(matcher = TagMatchers.Any, name="agent_handler", model = X.XAgentRequest.class)
     public void reactMessage(RequestDescriptor descriptor, X.XAgentRequest msg, RecipientHandler recipientHandler) {
 
-        Map<String, AgentProperties.Agent> tagAgents = agentProperties.getAgents();
+        Map<String, String> tagAgents = agentProperties.getTags();
         if (tagAgents == null) {
             log.warn("tag agents not found.");
             recipientHandler.setFailure(LegionException.valueOf("config failed."));
             return;
         }
-        AgentProperties.Agent agent = tagAgents.get(descriptor.getTag());
-        if (agent == null) {
+        String agentPrefix = tagAgents.get(descriptor.getTag());
+        if (agentPrefix == null) {
             log.warn("tag [{}] not found.", descriptor.getTag());
             recipientHandler.setFailure(
                     LegionException.valueOf(String.format("tag [%s] not found", descriptor.getTag())));
             return;
         }
-        String url = agent.getPrefix()+msg.getRequest();
+        String url = agentPrefix + msg.getRequest();
         log.debug("prepare post to url: {}", url);
         BoundRequestBuilder postBuilder = httpClient.preparePost(url);
         //http headers
@@ -68,9 +68,7 @@ public class AgentHandler implements IRecipientActor<X.XAgentRequest> {
                 log.debug("http response: {}", response);
                 X.XAgentResponse.Builder r = X.XAgentResponse.newBuilder();
                 for (Map.Entry<String, String> h : response.getHeaders()) {
-                    if (agent.getHeaderWhiteList().contains(h.getKey())) {
-                        r.putHeaders(h.getKey(), h.getValue());
-                    }
+                    r.putHeaders(h.getKey(), h.getValue());
                 }
                 r.setStatus(response.getStatusCode())
                         .setBody(ByteString.copyFrom(response.getResponseBodyAsByteBuffer()));

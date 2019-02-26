@@ -42,10 +42,6 @@ legion:
       nodeId: m1-agent
       groupId: agent
 
-  agents:
-    query:
-      headerWhiteList:
-        - Content-Type
-        - X-APP-AUTHORIZATION
-        - X-APP-SIGN
-      prefix: http://172.18.90.8:61614/tsm
+  agent:
+    tags:
+      query: http://172.18.90.8:61614/tsm

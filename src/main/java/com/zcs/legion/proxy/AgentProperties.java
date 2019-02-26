@@ -9,12 +9,7 @@ import java.util.Map;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "legion")
+@ConfigurationProperties(prefix = "legion.agent")
 public class AgentProperties {
-    private Map<String, Agent> agents;
-    @Data
-    public static class Agent{
-        private List<String> headerWhiteList;
-        private String prefix;
-    }
+    private Map<String, String> tags;
 }
