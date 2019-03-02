@@ -6,8 +6,8 @@ import com.legion.client.common.IRecipientActor;
 import com.legion.client.common.RequestDescriptor;
 import com.legion.client.common.TagMatchers;
 import com.legion.client.handlers.RecipientHandler;
-import com.legion.core.LegionException;
 import com.legion.core.api.X;
+import com.legion.core.exception.LegionException;
 import lombok.extern.slf4j.Slf4j;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.BoundRequestBuilder;
@@ -62,7 +62,7 @@ public class AgentHandler implements IRecipientActor<X.XAgentRequest> {
                 }
                 r.setStatus(response.getStatusCode())
                         .setBody(ByteString.copyFrom(response.getResponseBodyAsByteBuffer()));
-                recipientHandler.setSuccess(r.build().toByteString());
+                recipientHandler.setSuccess(r.build());
                 log.debug("http response to reply message: {}", r);
                 return response.getStatusText();
             }
