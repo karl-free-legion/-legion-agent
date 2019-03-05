@@ -20,13 +20,13 @@ import java.util.Map;
 
 @Slf4j
 @Component
-public class AgentHandler implements IRecipientActor<X.XAgentRequest> {
+public class AgentHandler implements IRecipientActor<X.XHttpRequest> {
     AsyncHttpClient httpClient = Dsl.asyncHttpClient();
     @Autowired
     private AgentProperties agentProperties;
     @Override
-    @ActorProvider(matcher = TagMatchers.Any, name="agent_handler", model = X.XAgentRequest.class)
-    public void reactMessage(RequestDescriptor descriptor, X.XAgentRequest msg, RecipientHandler recipientHandler) {
+    @ActorProvider(matcher = TagMatchers.Any, name="agent_handler", model = X.XHttpRequest.class)
+    public void reactMessage(RequestDescriptor descriptor, X.XHttpRequest msg, RecipientHandler recipientHandler) {
 
         Map<String, String> tagAgents = agentProperties.getTags();
         if (tagAgents == null) {
@@ -41,7 +41,7 @@ public class AgentHandler implements IRecipientActor<X.XAgentRequest> {
                     LegionException.valueOf(String.format("tag [%s] not found", descriptor.getTag())));
             return;
         }
-        String url = agentPrefix + msg.getRequest();
+        String url = agentPrefix + msg.getRequestURI();
         log.debug("prepare post to url: {}", url);
         BoundRequestBuilder postBuilder = httpClient.preparePost(url);
         //http headers
@@ -50,18 +50,17 @@ public class AgentHandler implements IRecipientActor<X.XAgentRequest> {
             postBuilder.addHeader(hk, headers.get(hk));
         }
         //http body
-        postBuilder.setBody(msg.getBody().toByteArray());
+        postBuilder.setBody(msg.getBody());
         //post
         postBuilder.execute(new AgentHttpHandler() {
             @Override
             public String onCompleted(Response response) throws Exception {
                 log.debug("http response: {}", response);
-                X.XAgentResponse.Builder r = X.XAgentResponse.newBuilder();
+                X.XHttpResponse.Builder r = X.XHttpResponse.newBuilder();
                 for (Map.Entry<String, String> h : response.getHeaders()) {
                     r.putHeaders(h.getKey(), h.getValue());
                 }
-                r.setStatus(response.getStatusCode())
-                        .setBody(ByteString.copyFrom(response.getResponseBodyAsByteBuffer()));
+                r.setStatus(response.getStatusCode()).setBody(response.getResponseBody());
                 recipientHandler.setSuccess(r.build());
                 log.debug("http response to reply message: {}", r);
                 return response.getStatusText();

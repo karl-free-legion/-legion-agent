@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.annotation.PostConstruct;
 
 /**
- * Legion-Gateway
+ * Legion-Agent
  * @author lance
  * @since 2019.2.23 16:41
  */
