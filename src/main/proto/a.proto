@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package com.zcs.legion.api;
+
+message BrokerMessage {
+    string body = 1;
+    int32 code = 2;
+}
+
+
