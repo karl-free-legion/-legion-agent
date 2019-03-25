@@ -9,6 +9,7 @@
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
+        <file>${logging.path}/zcs-legion-agent.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${logging.path}/zcs-legion-agent.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>30</maxHistory>
@@ -16,8 +17,6 @@
             <totalSizeCap>20GB</totalSizeCap>
         </rollingPolicy>
     </appender>
-
-    <logger name="com.legion" level="debug" />
 
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
