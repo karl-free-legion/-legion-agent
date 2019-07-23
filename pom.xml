@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.zcs</groupId>
     <artifactId>legion-agent</artifactId>
-    <version>1.0.1.1</version>
+    <version>1.0.1</version>
     <name>legion-agent</name>
     <description>Legion Agent</description>
 
