@@ -14,6 +14,120 @@ public final class A {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  /**
+   * Protobuf enum {@code com.zcs.legion.api.RequestType}
+   */
+  public enum RequestType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <pre>
+     * 内部服务请求
+     * </pre>
+     *
+     * <code>IN = 0;</code>
+     */
+    IN(0),
+    /**
+     * <pre>
+     *外部服务请求
+     * </pre>
+     *
+     * <code>EXT = 1;</code>
+     */
+    EXT(1),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <pre>
+     * 内部服务请求
+     * </pre>
+     *
+     * <code>IN = 0;</code>
+     */
+    public static final int IN_VALUE = 0;
+    /**
+     * <pre>
+     *外部服务请求
+     * </pre>
+     *
+     * <code>EXT = 1;</code>
+     */
+    public static final int EXT_VALUE = 1;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static RequestType valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static RequestType forNumber(int value) {
+      switch (value) {
+        case 0: return IN;
+        case 1: return EXT;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<RequestType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        RequestType> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<RequestType>() {
+            public RequestType findValueByNumber(int number) {
+              return RequestType.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.zcs.legion.api.A.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final RequestType[] VALUES = values();
+
+    public static RequestType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private RequestType(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:com.zcs.legion.api.RequestType)
+  }
+
   public interface BrokerMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.zcs.legion.api.BrokerMessage)
       com.google.protobuf.MessageOrBuilder {
@@ -32,6 +146,59 @@ public final class A {
      * <code>int32 code = 2;</code>
      */
     int getCode();
+
+    /**
+     * <pre>
+     *请求服务类型
+     * </pre>
+     *
+     * <code>.com.zcs.legion.api.RequestType requestType = 3;</code>
+     */
+    int getRequestTypeValue();
+    /**
+     * <pre>
+     *请求服务类型
+     * </pre>
+     *
+     * <code>.com.zcs.legion.api.RequestType requestType = 3;</code>
+     */
+    com.zcs.legion.api.A.RequestType getRequestType();
+
+    /**
+     * <pre>
+     *如果请求服务类型是外部服务请求 则此字段必须有值
+     * </pre>
+     *
+     * <code>string requestUrl = 4;</code>
+     */
+    java.lang.String getRequestUrl();
+    /**
+     * <pre>
+     *如果请求服务类型是外部服务请求 则此字段必须有值
+     * </pre>
+     *
+     * <code>string requestUrl = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getRequestUrlBytes();
+
+    /**
+     * <pre>
+     *请求类型 POST/GET
+     * </pre>
+     *
+     * <code>string httpMethod = 5;</code>
+     */
+    java.lang.String getHttpMethod();
+    /**
+     * <pre>
+     *请求类型 POST/GET
+     * </pre>
+     *
+     * <code>string httpMethod = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getHttpMethodBytes();
   }
   /**
    * Protobuf type {@code com.zcs.legion.api.BrokerMessage}
@@ -48,6 +215,9 @@ public final class A {
     private BrokerMessage() {
       body_ = "";
       code_ = 0;
+      requestType_ = 0;
+      requestUrl_ = "";
+      httpMethod_ = "";
     }
 
     @java.lang.Override
@@ -83,6 +253,24 @@ public final class A {
             case 16: {
 
               code_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+
+              requestType_ = rawValue;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              requestUrl_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              httpMethod_ = s;
               break;
             }
             default: {
@@ -160,6 +348,115 @@ public final class A {
       return code_;
     }
 
+    public static final int REQUESTTYPE_FIELD_NUMBER = 3;
+    private int requestType_;
+    /**
+     * <pre>
+     *请求服务类型
+     * </pre>
+     *
+     * <code>.com.zcs.legion.api.RequestType requestType = 3;</code>
+     */
+    public int getRequestTypeValue() {
+      return requestType_;
+    }
+    /**
+     * <pre>
+     *请求服务类型
+     * </pre>
+     *
+     * <code>.com.zcs.legion.api.RequestType requestType = 3;</code>
+     */
+    public com.zcs.legion.api.A.RequestType getRequestType() {
+      @SuppressWarnings("deprecation")
+      com.zcs.legion.api.A.RequestType result = com.zcs.legion.api.A.RequestType.valueOf(requestType_);
+      return result == null ? com.zcs.legion.api.A.RequestType.UNRECOGNIZED : result;
+    }
+
+    public static final int REQUESTURL_FIELD_NUMBER = 4;
+    private volatile java.lang.Object requestUrl_;
+    /**
+     * <pre>
+     *如果请求服务类型是外部服务请求 则此字段必须有值
+     * </pre>
+     *
+     * <code>string requestUrl = 4;</code>
+     */
+    public java.lang.String getRequestUrl() {
+      java.lang.Object ref = requestUrl_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        requestUrl_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *如果请求服务类型是外部服务请求 则此字段必须有值
+     * </pre>
+     *
+     * <code>string requestUrl = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRequestUrlBytes() {
+      java.lang.Object ref = requestUrl_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        requestUrl_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int HTTPMETHOD_FIELD_NUMBER = 5;
+    private volatile java.lang.Object httpMethod_;
+    /**
+     * <pre>
+     *请求类型 POST/GET
+     * </pre>
+     *
+     * <code>string httpMethod = 5;</code>
+     */
+    public java.lang.String getHttpMethod() {
+      java.lang.Object ref = httpMethod_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        httpMethod_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *请求类型 POST/GET
+     * </pre>
+     *
+     * <code>string httpMethod = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getHttpMethodBytes() {
+      java.lang.Object ref = httpMethod_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        httpMethod_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -180,6 +477,15 @@ public final class A {
       if (code_ != 0) {
         output.writeInt32(2, code_);
       }
+      if (requestType_ != com.zcs.legion.api.A.RequestType.IN.getNumber()) {
+        output.writeEnum(3, requestType_);
+      }
+      if (!getRequestUrlBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, requestUrl_);
+      }
+      if (!getHttpMethodBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, httpMethod_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -195,6 +501,16 @@ public final class A {
       if (code_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, code_);
+      }
+      if (requestType_ != com.zcs.legion.api.A.RequestType.IN.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, requestType_);
+      }
+      if (!getRequestUrlBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, requestUrl_);
+      }
+      if (!getHttpMethodBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, httpMethod_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -216,6 +532,11 @@ public final class A {
           .equals(other.getBody());
       result = result && (getCode()
           == other.getCode());
+      result = result && requestType_ == other.requestType_;
+      result = result && getRequestUrl()
+          .equals(other.getRequestUrl());
+      result = result && getHttpMethod()
+          .equals(other.getHttpMethod());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -231,6 +552,12 @@ public final class A {
       hash = (53 * hash) + getBody().hashCode();
       hash = (37 * hash) + CODE_FIELD_NUMBER;
       hash = (53 * hash) + getCode();
+      hash = (37 * hash) + REQUESTTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + requestType_;
+      hash = (37 * hash) + REQUESTURL_FIELD_NUMBER;
+      hash = (53 * hash) + getRequestUrl().hashCode();
+      hash = (37 * hash) + HTTPMETHOD_FIELD_NUMBER;
+      hash = (53 * hash) + getHttpMethod().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -368,6 +695,12 @@ public final class A {
 
         code_ = 0;
 
+        requestType_ = 0;
+
+        requestUrl_ = "";
+
+        httpMethod_ = "";
+
         return this;
       }
 
@@ -396,6 +729,9 @@ public final class A {
         com.zcs.legion.api.A.BrokerMessage result = new com.zcs.legion.api.A.BrokerMessage(this);
         result.body_ = body_;
         result.code_ = code_;
+        result.requestType_ = requestType_;
+        result.requestUrl_ = requestUrl_;
+        result.httpMethod_ = httpMethod_;
         onBuilt();
         return result;
       }
@@ -450,6 +786,17 @@ public final class A {
         }
         if (other.getCode() != 0) {
           setCode(other.getCode());
+        }
+        if (other.requestType_ != 0) {
+          setRequestTypeValue(other.getRequestTypeValue());
+        }
+        if (!other.getRequestUrl().isEmpty()) {
+          requestUrl_ = other.requestUrl_;
+          onChanged();
+        }
+        if (!other.getHttpMethod().isEmpty()) {
+          httpMethod_ = other.httpMethod_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -574,6 +921,249 @@ public final class A {
         onChanged();
         return this;
       }
+
+      private int requestType_ = 0;
+      /**
+       * <pre>
+       *请求服务类型
+       * </pre>
+       *
+       * <code>.com.zcs.legion.api.RequestType requestType = 3;</code>
+       */
+      public int getRequestTypeValue() {
+        return requestType_;
+      }
+      /**
+       * <pre>
+       *请求服务类型
+       * </pre>
+       *
+       * <code>.com.zcs.legion.api.RequestType requestType = 3;</code>
+       */
+      public Builder setRequestTypeValue(int value) {
+        requestType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *请求服务类型
+       * </pre>
+       *
+       * <code>.com.zcs.legion.api.RequestType requestType = 3;</code>
+       */
+      public com.zcs.legion.api.A.RequestType getRequestType() {
+        @SuppressWarnings("deprecation")
+        com.zcs.legion.api.A.RequestType result = com.zcs.legion.api.A.RequestType.valueOf(requestType_);
+        return result == null ? com.zcs.legion.api.A.RequestType.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       *请求服务类型
+       * </pre>
+       *
+       * <code>.com.zcs.legion.api.RequestType requestType = 3;</code>
+       */
+      public Builder setRequestType(com.zcs.legion.api.A.RequestType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        requestType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *请求服务类型
+       * </pre>
+       *
+       * <code>.com.zcs.legion.api.RequestType requestType = 3;</code>
+       */
+      public Builder clearRequestType() {
+        
+        requestType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object requestUrl_ = "";
+      /**
+       * <pre>
+       *如果请求服务类型是外部服务请求 则此字段必须有值
+       * </pre>
+       *
+       * <code>string requestUrl = 4;</code>
+       */
+      public java.lang.String getRequestUrl() {
+        java.lang.Object ref = requestUrl_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          requestUrl_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *如果请求服务类型是外部服务请求 则此字段必须有值
+       * </pre>
+       *
+       * <code>string requestUrl = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRequestUrlBytes() {
+        java.lang.Object ref = requestUrl_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          requestUrl_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *如果请求服务类型是外部服务请求 则此字段必须有值
+       * </pre>
+       *
+       * <code>string requestUrl = 4;</code>
+       */
+      public Builder setRequestUrl(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        requestUrl_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *如果请求服务类型是外部服务请求 则此字段必须有值
+       * </pre>
+       *
+       * <code>string requestUrl = 4;</code>
+       */
+      public Builder clearRequestUrl() {
+        
+        requestUrl_ = getDefaultInstance().getRequestUrl();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *如果请求服务类型是外部服务请求 则此字段必须有值
+       * </pre>
+       *
+       * <code>string requestUrl = 4;</code>
+       */
+      public Builder setRequestUrlBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        requestUrl_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object httpMethod_ = "";
+      /**
+       * <pre>
+       *请求类型 POST/GET
+       * </pre>
+       *
+       * <code>string httpMethod = 5;</code>
+       */
+      public java.lang.String getHttpMethod() {
+        java.lang.Object ref = httpMethod_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          httpMethod_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *请求类型 POST/GET
+       * </pre>
+       *
+       * <code>string httpMethod = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getHttpMethodBytes() {
+        java.lang.Object ref = httpMethod_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          httpMethod_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *请求类型 POST/GET
+       * </pre>
+       *
+       * <code>string httpMethod = 5;</code>
+       */
+      public Builder setHttpMethod(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        httpMethod_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *请求类型 POST/GET
+       * </pre>
+       *
+       * <code>string httpMethod = 5;</code>
+       */
+      public Builder clearHttpMethod() {
+        
+        httpMethod_ = getDefaultInstance().getHttpMethod();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *请求类型 POST/GET
+       * </pre>
+       *
+       * <code>string httpMethod = 5;</code>
+       */
+      public Builder setHttpMethodBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        httpMethod_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -641,9 +1231,12 @@ public final class A {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\007a.proto\022\022com.zcs.legion.api\"+\n\rBrokerM" +
-      "essage\022\014\n\004body\030\001 \001(\t\022\014\n\004code\030\002 \001(\005b\006prot" +
-      "o3"
+      "\n\007a.proto\022\022com.zcs.legion.api\"\211\001\n\rBroker" +
+      "Message\022\014\n\004body\030\001 \001(\t\022\014\n\004code\030\002 \001(\005\0224\n\013r" +
+      "equestType\030\003 \001(\0162\037.com.zcs.legion.api.Re" +
+      "questType\022\022\n\nrequestUrl\030\004 \001(\t\022\022\n\nhttpMet" +
+      "hod\030\005 \001(\t*\036\n\013RequestType\022\006\n\002IN\020\000\022\007\n\003EXT\020" +
+      "\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -662,7 +1255,7 @@ public final class A {
     internal_static_com_zcs_legion_api_BrokerMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_zcs_legion_api_BrokerMessage_descriptor,
-        new java.lang.String[] { "Body", "Code", });
+        new java.lang.String[] { "Body", "Code", "RequestType", "RequestUrl", "HttpMethod", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
