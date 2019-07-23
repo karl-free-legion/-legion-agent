@@ -4,6 +4,7 @@ import com.legion.client.common.RequestDescriptor;
 import com.legion.client.handlers.RecipientHandler;
 import com.zcs.legion.api.A;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,11 @@ public class ExtRequestTypeHandle extends AbstractRequestTypeHandler {
      */
     @Override
     public void request(RequestDescriptor descriptor, A.BrokerMessage message, RecipientHandler recipientHandler) {
-        messageHandleMap.get(message.getHttpMethod()).sendMessage(descriptor,message,recipientHandler);
+        String method = message.getHttpMethod();
+        if(StringUtils.isBlank(method)){
+            method = HttpMethod.POST.toString();
+        }
+        messageHandleMap.get(method).sendMessage(descriptor,message,recipientHandler);
     }
 
     /**
@@ -49,7 +54,7 @@ public class ExtRequestTypeHandle extends AbstractRequestTypeHandler {
     static class PostSendMessageHandle implements SendMessageHandle{
         @Override
         public void sendMessage(RequestDescriptor descriptor, A.BrokerMessage message, RecipientHandler recipientHandler) {
-            dealPostResult(message.getRequestUrl(),descriptor,message,recipientHandler);
+            dealPostResult(descriptor.getRequest().getRequestURI(),descriptor,message,recipientHandler);
         }
     }
 
@@ -59,7 +64,7 @@ public class ExtRequestTypeHandle extends AbstractRequestTypeHandler {
     static class GetSendMessageHandle implements SendMessageHandle{
         @Override
         public void sendMessage(RequestDescriptor descriptor, A.BrokerMessage message, RecipientHandler recipientHandler) {
-            dealGetResult(message.getRequestUrl(),descriptor,recipientHandler);
+            dealGetResult(descriptor.getRequest().getRequestURI(),descriptor,recipientHandler);
         }
     }
 }

@@ -166,24 +166,6 @@ public final class A {
 
     /**
      * <pre>
-     *如果请求服务类型是外部服务请求 则此字段必须有值
-     * </pre>
-     *
-     * <code>string requestUrl = 4;</code>
-     */
-    java.lang.String getRequestUrl();
-    /**
-     * <pre>
-     *如果请求服务类型是外部服务请求 则此字段必须有值
-     * </pre>
-     *
-     * <code>string requestUrl = 4;</code>
-     */
-    com.google.protobuf.ByteString
-        getRequestUrlBytes();
-
-    /**
-     * <pre>
      *请求类型 POST/GET
      * </pre>
      *
@@ -216,7 +198,6 @@ public final class A {
       body_ = "";
       code_ = 0;
       requestType_ = 0;
-      requestUrl_ = "";
       httpMethod_ = "";
     }
 
@@ -259,12 +240,6 @@ public final class A {
               int rawValue = input.readEnum();
 
               requestType_ = rawValue;
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              requestUrl_ = s;
               break;
             }
             case 42: {
@@ -373,48 +348,6 @@ public final class A {
       return result == null ? com.zcs.legion.api.A.RequestType.UNRECOGNIZED : result;
     }
 
-    public static final int REQUESTURL_FIELD_NUMBER = 4;
-    private volatile java.lang.Object requestUrl_;
-    /**
-     * <pre>
-     *如果请求服务类型是外部服务请求 则此字段必须有值
-     * </pre>
-     *
-     * <code>string requestUrl = 4;</code>
-     */
-    public java.lang.String getRequestUrl() {
-      java.lang.Object ref = requestUrl_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        requestUrl_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *如果请求服务类型是外部服务请求 则此字段必须有值
-     * </pre>
-     *
-     * <code>string requestUrl = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getRequestUrlBytes() {
-      java.lang.Object ref = requestUrl_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        requestUrl_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     public static final int HTTPMETHOD_FIELD_NUMBER = 5;
     private volatile java.lang.Object httpMethod_;
     /**
@@ -480,9 +413,6 @@ public final class A {
       if (requestType_ != com.zcs.legion.api.A.RequestType.IN.getNumber()) {
         output.writeEnum(3, requestType_);
       }
-      if (!getRequestUrlBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, requestUrl_);
-      }
       if (!getHttpMethodBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, httpMethod_);
       }
@@ -505,9 +435,6 @@ public final class A {
       if (requestType_ != com.zcs.legion.api.A.RequestType.IN.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(3, requestType_);
-      }
-      if (!getRequestUrlBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, requestUrl_);
       }
       if (!getHttpMethodBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, httpMethod_);
@@ -533,8 +460,6 @@ public final class A {
       result = result && (getCode()
           == other.getCode());
       result = result && requestType_ == other.requestType_;
-      result = result && getRequestUrl()
-          .equals(other.getRequestUrl());
       result = result && getHttpMethod()
           .equals(other.getHttpMethod());
       result = result && unknownFields.equals(other.unknownFields);
@@ -554,8 +479,6 @@ public final class A {
       hash = (53 * hash) + getCode();
       hash = (37 * hash) + REQUESTTYPE_FIELD_NUMBER;
       hash = (53 * hash) + requestType_;
-      hash = (37 * hash) + REQUESTURL_FIELD_NUMBER;
-      hash = (53 * hash) + getRequestUrl().hashCode();
       hash = (37 * hash) + HTTPMETHOD_FIELD_NUMBER;
       hash = (53 * hash) + getHttpMethod().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -697,8 +620,6 @@ public final class A {
 
         requestType_ = 0;
 
-        requestUrl_ = "";
-
         httpMethod_ = "";
 
         return this;
@@ -730,7 +651,6 @@ public final class A {
         result.body_ = body_;
         result.code_ = code_;
         result.requestType_ = requestType_;
-        result.requestUrl_ = requestUrl_;
         result.httpMethod_ = httpMethod_;
         onBuilt();
         return result;
@@ -789,10 +709,6 @@ public final class A {
         }
         if (other.requestType_ != 0) {
           setRequestTypeValue(other.getRequestTypeValue());
-        }
-        if (!other.getRequestUrl().isEmpty()) {
-          requestUrl_ = other.requestUrl_;
-          onChanged();
         }
         if (!other.getHttpMethod().isEmpty()) {
           httpMethod_ = other.httpMethod_;
@@ -987,95 +903,6 @@ public final class A {
         return this;
       }
 
-      private java.lang.Object requestUrl_ = "";
-      /**
-       * <pre>
-       *如果请求服务类型是外部服务请求 则此字段必须有值
-       * </pre>
-       *
-       * <code>string requestUrl = 4;</code>
-       */
-      public java.lang.String getRequestUrl() {
-        java.lang.Object ref = requestUrl_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          requestUrl_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *如果请求服务类型是外部服务请求 则此字段必须有值
-       * </pre>
-       *
-       * <code>string requestUrl = 4;</code>
-       */
-      public com.google.protobuf.ByteString
-          getRequestUrlBytes() {
-        java.lang.Object ref = requestUrl_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          requestUrl_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *如果请求服务类型是外部服务请求 则此字段必须有值
-       * </pre>
-       *
-       * <code>string requestUrl = 4;</code>
-       */
-      public Builder setRequestUrl(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        requestUrl_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *如果请求服务类型是外部服务请求 则此字段必须有值
-       * </pre>
-       *
-       * <code>string requestUrl = 4;</code>
-       */
-      public Builder clearRequestUrl() {
-        
-        requestUrl_ = getDefaultInstance().getRequestUrl();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *如果请求服务类型是外部服务请求 则此字段必须有值
-       * </pre>
-       *
-       * <code>string requestUrl = 4;</code>
-       */
-      public Builder setRequestUrlBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        requestUrl_ = value;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object httpMethod_ = "";
       /**
        * <pre>
@@ -1231,12 +1058,11 @@ public final class A {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\007a.proto\022\022com.zcs.legion.api\"\211\001\n\rBroker" +
-      "Message\022\014\n\004body\030\001 \001(\t\022\014\n\004code\030\002 \001(\005\0224\n\013r" +
-      "equestType\030\003 \001(\0162\037.com.zcs.legion.api.Re" +
-      "questType\022\022\n\nrequestUrl\030\004 \001(\t\022\022\n\nhttpMet" +
-      "hod\030\005 \001(\t*\036\n\013RequestType\022\006\n\002IN\020\000\022\007\n\003EXT\020" +
-      "\001b\006proto3"
+      "\n\007a.proto\022\022com.zcs.legion.api\"u\n\rBrokerM" +
+      "essage\022\014\n\004body\030\001 \001(\t\022\014\n\004code\030\002 \001(\005\0224\n\013re" +
+      "questType\030\003 \001(\0162\037.com.zcs.legion.api.Req" +
+      "uestType\022\022\n\nhttpMethod\030\005 \001(\t*\036\n\013RequestT" +
+      "ype\022\006\n\002IN\020\000\022\007\n\003EXT\020\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1255,7 +1081,7 @@ public final class A {
     internal_static_com_zcs_legion_api_BrokerMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_zcs_legion_api_BrokerMessage_descriptor,
-        new java.lang.String[] { "Body", "Code", "RequestType", "RequestUrl", "HttpMethod", });
+        new java.lang.String[] { "Body", "Code", "RequestType", "HttpMethod", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

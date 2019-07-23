@@ -12,7 +12,6 @@ message BrokerMessage {
     string body = 1;
     int32 code = 2;
     RequestType requestType = 3; //请求服务类型
-    string requestUrl = 4;//如果请求服务类型是外部服务请求 则此字段必须有值
     string httpMethod = 5;//请求类型 POST/GET
 }
 
