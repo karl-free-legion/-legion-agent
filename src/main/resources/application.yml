@@ -46,13 +46,14 @@ logging:
 legion:
   net:
     serverUrls:
-      - tcp://172.18.90.58:8850
+      - tcp://127.0.0.1:8850
     node:
       nodeId: m1-agents
-      groupId: localAgents
+      groupId: agent
 
   agent:
     tags:
       tsm: http://172.18.90.8:61614
       message: http://172.18.90.7:9083
       ZCAppcommon: http://172.80.80.42:8080
+      ZCAms: http://172.18.90.7:10081
