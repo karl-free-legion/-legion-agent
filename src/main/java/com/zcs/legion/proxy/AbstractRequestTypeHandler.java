@@ -63,9 +63,9 @@ public abstract class AbstractRequestTypeHandler implements RequestTypeHandler {
                 Map<String, String> r = Maps.newHashMap();
                 for (Map.Entry<String, String> h : response.getHeaders()) {
                     r.put(h.getKey(), h.getValue());
+                    descriptor.putExtensionParam(h.getKey(), h.getValue());
                 }
 
-                descriptor.setStatus(r);
                 A.BrokerMessage.Builder reply = A.BrokerMessage.newBuilder()
                         .setCode(response.getStatusCode())
                         .setBody(response.getResponseBody());
