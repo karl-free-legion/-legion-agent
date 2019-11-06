@@ -3,10 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.3.RELEASE</version>
-        <relativePath/>
+        <groupId>com.zcs.legion</groupId>
+        <artifactId>legion-spring-boot-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <groupId>com.zcs</groupId>
     <artifactId>legion-agent</artifactId>
@@ -22,18 +21,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.asynchttpclient</groupId>
             <artifactId>async-http-client</artifactId>
             <version>2.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zcs.boot</groupId>
-            <artifactId>spring-boot-starter-legion-client</artifactId>
-            <version>1.4.1.13-SNAPSHOT</version>
         </dependency>
 
         <!-- Commons -->
@@ -55,7 +45,6 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
         </dependency>
 
         <!-- Log -->
@@ -63,16 +52,6 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>1.2.3</version>
-        </dependency>
-
-        <!-- Prometheus/Actuator-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
 
         <dependency>
