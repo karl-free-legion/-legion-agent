@@ -36,21 +36,27 @@ management:
 # logging
 logging:
   path: logs
+  file: legion-agent
   level:
     org.springframework: info
-    com.zcs.legion: debug
-    com.legion.client: debug
-    com.legion.net: debug
+    com.zcs.legion: info
+    com.legion.client: info
+    com.legion.net: info
 
 #legion config
 legion:
-  net:
-    serverUrls:
-      - tcp://127.0.0.1:8850
-    node:
-      nodeId: m1-agents
-      groupId: agent
-
+  module:
+    group-id: agentdev
+    #    group-id: 2019
+    zipkinHttpHost: 172.16.1.145:9411
+    notTrace: true
+    link:
+      host: 172.18.90.34
+      port: 22104
+      read-timeout-retry-times: 0
+      timeout-retry-delay: -1
+    heartbeat:
+      interval-seconds: 5
   agent:
     tags:
       tsm: http://172.18.90.8:61614
